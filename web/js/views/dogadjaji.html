@@ -1,0 +1,76 @@
+<div class = "container-fluid bg">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <form class = "form-container" style="background-color: white">
+                <div class="form-group" >
+                    <div class="oj-flex oj-flex-items-pad">
+                        <div id="formId" class="oj-form">
+                            <img id="Imageid" src="css/images/generatorKonsultacija.png" style=" width: 250; height: 100; border: 20; display: block; margin-left: auto; margin-right: auto;" alt=" "/>
+                            <br>
+                            <!--<h1 class="uvidURacun" style="text-align: center"><b>Generator konsultacija</b></h1>-->
+                            <br>
+                            <div id= "errorDiv" class="alert alert-danger" role="alert" style="display: none">
+                                Datum do mora biti nakon datuma od.        
+                            </div>
+                            <label for="kombo" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Izaberite dan odrzavanja konsultacija:</label>
+
+                            <oj-combobox-one  value="{{val}}" id="kombo" >
+                                <oj-option value="1">Ponedeljak</oj-option>
+                                <oj-option value="2">Utorak</oj-option>
+                                <oj-option value="3">Sreda</oj-option>
+                                <oj-option value="4">Cetvrtak</oj-option>
+                                <oj-option value="5">Petak</oj-option>
+                            </oj-combobox-one> 
+                            <oj-label for="curr-value" class="oj-label">Curr value is: </oj-label>
+                            <span id="curr-value" data-bind="text: val"></span>
+                            <br/>
+                            <label for="dod" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Datum od:</label>
+                            <br/>
+                            <oj-input-date id="dod" value={{datumPocetka}} >
+                            </oj-input-date>
+                            <br/>
+                            <label for="ddo" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Datum do:</label>
+                            <br/>
+                            <oj-input-date id="ddo" value={{datumZavrsetka}} >
+                            </oj-input-date>
+                            <label for="vpoc" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Vreme pocetka: </label>
+                            <br/>
+                            <oj-input-time id="vpoc" value={{vremePocetka}} >
+                            </oj-input-time>
+                            <label for="vzav" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Vreme zavrsetka: </label>
+                            <br/>
+                            <oj-input-time id="vzav" value={{vremeZavrsetka}} >
+                            </oj-input-time>
+                            <label for="mestoOdrzavanja" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Mesto odrzavanja:</label>
+                            <br>
+                            <input type="text" class="form-control" id="mestoOdrzavanja" placeholder="Mesto odrzavanja" data-bind="value: mestoOdrzavanja"/>
+                            <br/>
+                            <label for="kapacitet" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Kapacitet:</label>
+                            <br>
+                             <oj-combobox-one  value="{{kapacitet}}" id="kapacitet" >
+                                <oj-option value="1">1</oj-option>
+                                <oj-option value="2">2</oj-option>
+                                <oj-option value="3">3</oj-option>
+                                <oj-option value="4">4</oj-option>
+                                <oj-option value="5">5</oj-option>
+                                <oj-option value="1">6</oj-option>
+                                <oj-option value="2">7</oj-option>
+                                <oj-option value="3">8</oj-option>
+                                <oj-option value="4">9</oj-option>
+                                <oj-option value="5">10</oj-option>
+                            </oj-combobox-one> 
+                            <br/>
+
+                            <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-info btn-block " data-bind="click:generisi" class="btn btn-default" ><i class="fa fa-sign-in" aria-hidden="true"></i> Generisi dogadjaje</button>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+</div>
+

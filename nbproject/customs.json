@@ -1,0 +1,14 @@
+{
+    "elements": {
+        "oj-defer": {},
+        "oj-label": {},
+        "oj-input-date": {},
+        "oj-popup": {},
+        "oj-date-time-picker": {},
+        "oj-list-view": {},
+        "oj-input-time": {},
+        "oj-option": {},
+        "oj-combobox-one": {}
+    },
+    "attributes": {}
+}

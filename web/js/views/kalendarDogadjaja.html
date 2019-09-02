@@ -1,0 +1,72 @@
+<div class = "oj-flex-item">
+    <!--attr: {id: 'kalendar'},-->
+    <div id = "calendar" data-bind=" jqueryUI :{
+             component: 'fullCalendar',
+                    events:  lista,
+                    displayEventEnd: true,
+                    timeFormat: 'HH:mm',
+                    dayClick: dayClick,
+                    eventClick: eventClick,
+                    eventColor: '#98FB98',
+
+            }">
+
+    </div>
+    <oj-dialog style="display:none; width: 500px" id="modalDialog3">
+        <div slot="body">
+            <div id="formId" class="oj-form">
+                <h2 class="labeleZelena" style="font-weight: bold; text-align: center">Generisi konsultacije</h2>
+                <label for="izabraniDan"  style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Datum konsultacija: </label>
+                <br/>
+                <input type="text" class="form-control" id="izabraniDan" placeholder="Izabrani dan" data-bind="value: kliknutiDatum" readonly="true"/>
+                <br/>
+
+                <label for="vpoc1" class="labeleZelena" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Vreme pocetka: </label>
+                <br/>
+                <oj-input-time id="vpoc1" value={{vremePocetka1}} style="width: 500px" >
+                </oj-input-time>
+                <br/>
+                <label for="vzav1" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Vreme zavrsetka: </label>
+                <br/>
+                <oj-input-time style="width: 500px" id="vzav1" value={{vremeZavrsetka1}} >
+                </oj-input-time>
+                <br/>
+                <label for="mestoOdrzavanja" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Mesto odrzavanja:</label>
+                <br>
+                <input type="text" class="form-control" id="mestoOdrzavanja" placeholder="Mesto odrzavanja" data-bind="value: mestoOdrzavanja"/>
+                <br/>
+                <label for="kapacitet" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Kapacitet:</label>
+                <br>
+                <input type="text" class="form-control" id="kapacitet" placeholder="Kapacitet" data-bind="value: kapacitet"/>
+                <br/>
+
+                <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-info btn-block " data-bind="click:generisi"><i class="fa fa-sign-in" aria-hidden="true"></i> Generisi dogadjaj</button>           
+            </div>
+            <div slot="footer">
+                <oj-button id="okButton" data-bind="click: function() {
+                  document.querySelector('#modalDialog3').close();
+                }">  Cancel
+                </oj-button>
+            </div>
+        </div>
+    </oj-dialog>
+
+    <oj-popup style="display:none" id="popupEvent" >
+        <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-danger btn-block " data-bind="click: otvoriDijalogZaBrisanje"><i class="fa fa-sign-in" aria-hidden="true"></i> Otkaži konsultacije</button>           
+        <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-info btn-block " data-bind="click:detaljanPregled"><i class="fa fa-sign-in" aria-hidden="true"></i> Detaljan pregled</button>           
+
+    </oj-popup>
+    <oj-dialog style="display:none; width: 500px" id="izbrisiDijalog" title="Da li ste sigurni da zelite da otkazete termin i posaljete email sa obavestenjem svim studentima?">
+        <div slot="body">
+            <div slot="footer">
+                <oj-button id="okButton" data-bind="click: function() {
+                  document.querySelector('#izbrisiDijalog').close();
+                }">  Cancel
+                </oj-button>
+                <oj-button id="okButton" data-bind="click: izbrisi">  Potvrdi
+                </oj-button>
+            </div>
+        </div>
+    </oj-dialog>
+</div>
+

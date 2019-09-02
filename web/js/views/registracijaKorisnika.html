@@ -1,0 +1,64 @@
+<div id="divId">
+    <div>
+
+    </div>
+    <div class = "container-fluid bg">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <form class = "form-container">
+                    <div class="form-group">
+                        <h1 class="uvidURacun" style="text-align: center"><b>Registrujte se</b></h1>
+
+                        <br>
+
+                        <label for="brojIndeksa" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Broj indeksa</label>
+                        <input type="text" placeholder="Broj indeksa" class="form-control" id="brojIndeksa" data-bind="value: brojIndeksa"/>
+
+                        <label for="korime" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Korisničko ime</label>
+                        <input type="text" class="form-control" id="korime"
+                               required="true" placeholder="Korisnicko ime" data-bind="value: korisnickoIme"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="loz" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Lozinka</label>
+                        <input type="password" class="form-control" required="true" id="loz" placeholder="Lozinka" data-bind="value: lozinka"/>
+                    </div>
+                    <br>
+                    <div id="divError" class="alert alert-danger" role="alert" style="display: none">
+                    </div>
+                    <div id="validacija" class="alert alert-danger" role="alert" style="display: none">
+                        Korisničko ime i lozinka moraju imati bar 3 karaktera.         
+                    </div>
+                    <button id="myBtn" style="font-size: 17px; letter-spacing: 1px; " type="submit" class ="btn btn-info btn-block " data-bind="click:registracijaKorisnika" class="btn btn-default"><i class="fa fa-registered" aria-hidden="true"></i> Registruj se</button>
+                    <div class="checkbox">
+                        <label>
+                            <a href="http://localhost:8383/Aplikacija/web/index.html">
+                                Vrati me na početnu stranu.
+                            </a>
+                        </label>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+
+        </div>
+
+
+    </div>
+    <!--    <div>
+            <label for="text-input">Korisnicko ime: </label>
+            <input id="text-input" type="text" required="true"  data-bind="ojComponent:
+               {component: 'ojInputText', value: korisnickoIme}"
+                   /> 
+            <br/>
+    
+            <label for="text-input">Lozinka: </label>
+            <input id="text-input" type="text" required="true"  data-bind="ojComponent:
+               {component: 'ojInputText', value: lozinka}"
+                   /> 
+            <br/>
+            <button data-bind="click:registracijaKorisnika">Registruj se.</button>
+    
+        </div>-->
+</div>

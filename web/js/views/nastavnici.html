@@ -1,0 +1,50 @@
+<!--
+ Copyright (c) 2014, 2017, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+<div>
+    <h1 class="uvidURacun" style="text-align: center; font-size: 27px;"><b>Pregled nastavnika</b></h1>
+
+
+    <oj-input-text id="filterDepartId" placeholder="Pretrazi nastavnike" on-raw-value-changed="[[handleRawValueChanged]]"></oj-input-text>
+    <oj-list-view id="listview" aria-label="list with hierarchical data" 
+                  data="[[dataProvider]]" selection-mode="single" "
+                  on-selection-changed="[[listItemClickListener]]"
+                  >
+        <template slot="itemTemplate">
+            <span>
+                <div style="display: inline">
+
+                    <div class="oj-flex" style="flex-wrap: nowrap">
+                        <span class="oj-flex-item" data-bind="style: { backgroundImage: 'url(\'css/images/nastavnici/'+$current.data.ime+'.jpg\')', 
+                         backgroundRepeat: 'no-repeat', backgroundSize: '90px 100px', minHeight: '100px', minWidth: '90px', maxWidth: '90px' }, attr: { 'aria-label': $current.data.ime }">
+                        </span>
+                        <br/>
+                        <!--<span data-bind="text: $current.data.ime, style:{fontWeight: 'bold'}"  > </span>-->
+                        <!--<span data-bind="text: $current.data.prezime, style:{fontWeight: 'bold'}"  > </span>-->
+                        <oj-bind-text value='[[$current.data.ime]]'></oj-bind-text>
+                        <oj-bind-text value='[[$current.data.prezime]]'></oj-bind-text>
+                        <br/>
+                        Kabinet:
+                        <oj-bind-text value='[[$current.data.kabinet]]'></oj-bind-text>
+                        <br/>
+                        Email:
+                        <oj-bind-text value='[[$current.data.email]]'></oj-bind-text>
+                        <br/>
+                        Telefon:
+                        <oj-bind-text value='[[$current.data.brojTelefona]]'></oj-bind-text>
+                    </div>
+                </div>
+            </span>
+        </template>
+
+    </oj-list-view>
+    <oj-popup style="display:none" id="popupNastavnik" >
+        <button id="myBtn" type="submit" class ="btn btn-info btn-block " style="font-size: 17px; letter-spacing: 1px " data-bind="click: izaberiNastavnika" class="btn btn-default"><i class="fa fa-check" aria-hidden="true"></i>Izaberi nastavnika</button>
+
+    </oj-popup>
+
+
+
+</div>
+

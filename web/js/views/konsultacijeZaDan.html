@@ -1,0 +1,57 @@
+<div>
+    <br>
+    <h2 class="labelePlava">Spisak Vasih konsultacija na dan <span data-bind="text: izabraniDatum" style="animation-fill-mode: backwards; color: red"></span>
+        u terminu od <span data-bind="text: vremePocetkaIzabranihKons" style="animation-fill-mode: backwards; color: red"></span>
+        do <span data-bind="text: vremeZavrsetkaIzabranihKons" style="animation-fill-mode: backwards; color: red"></span></h2>
+    <br>
+    <table class="tabela" id="table" style="border: 6px solid #d0ecfd; 
+           " data-bind="ojComponent: {component: 'ojTable', 
+                 data: listaPotrosaca,
+                 beforeCurrentRow: optionChange,
+                   columnsDefault: {headerStyle: 'font-weight: bold;'},
+                   
+                    selectionMode: {row: 'single', column: 'multiple'},
+                    rootAttributes: {'style':'width: 100%; height:100%;'},
+                    columns: [
+                        {headerText: 'Naslov', field: 'naslov'},
+                        {headerText: 'Datum', field: 'datum'},
+                        {headerText: 'Pocetak', field: 'vremePocetka'},
+                        {headerText: 'Zavrsetak', field: 'vremeZavrsetka'},
+                        {headerText: 'Mesto', field: 'mestoOdrzavanja'},
+                        {headerText: 'Student', field: 'student'},
+                        {headerText: 'Status', field: 'status'},
+                        {headerText: 'Opis', field: 'opis'}
+                    ]}">
+    </table>
+    <br/>
+
+    <br/>
+
+</div>
+<oj-dialog style="display:none" id="modalDialog1" title="Modal Dialog">
+    <div slot="body">
+        <div>
+            <oj-combobox-one id="combobox" value="{{status}}"
+                             style="max-width:20em">
+                <oj-option value="odobreno">Odobreno</oj-option>
+                <oj-option value="otkazano">Otkazano</oj-option>
+                <oj-option value="na cekanju">Na cekanju</oj-option>
+            </oj-combobox-one>
+            <button id="myBtn" class ="btn btn-info btn-block " style="font-size: 17px; letter-spacing: 1px " data-bind="click: postaviStatus" ><i class="fa fa-check" aria-hidden="true"></i>Postavi status</button>
+            <input type="text" class="form-control" id="opis" placeholder="Opis" data-bind="value: opis"/>
+            <br/>
+            <button id="myBtn" class ="btn btn-info btn-block " style="font-size: 17px; letter-spacing: 1px " data-bind="click: postaviOpis" ><i class="fa fa-check" aria-hidden="true"></i>Postavi poruku</button>
+            <button id="myBtn" class ="btn btn-danger btn-block " style="font-size: 17px; letter-spacing: 1px " data-bind="click: izbrisiKonsultacije" class="btn btn-default"><i class="fa fa-check" aria-hidden="true"></i>Izbrisi konsuiltacije</button>
+
+
+        </div>
+        <div slot="footer">
+            <oj-button id="okButton" data-bind="click: function() {
+                  document.querySelector('#modalDialog1').close();
+                }">  Cancel
+            </oj-button>
+        </div>
+</oj-dialog>
+
+</div>
+

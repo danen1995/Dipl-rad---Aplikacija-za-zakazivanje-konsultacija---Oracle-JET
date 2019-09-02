@@ -1,0 +1,59 @@
+   
+<div id ="calendar" data-bind="jqueryUI :{
+             component: 'fullCalendar',
+                 events:  lista,
+                 displayEventEnd: true,
+                 timeFormat: 'HH:mm',
+                 eventClick: eventClick,
+                 eventColor: '#98FB98'
+         }"> 
+
+</div>
+<div>
+    <oj-dialog style="display:none" id="popup1" title="Zakazivanje konsultacija">
+
+        <div slot="body">
+            <label for="exampleInputEmail1" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Naslov</label>
+            <br>
+            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Naslov" data-bind="value: naslov"/>
+
+            <label for="opis" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Opis</label>
+            <br>
+            <input type="text" class="form-control" id="opis" placeholder="Opis" data-bind="value: opis"/>
+
+            <label for="nazivPriloga" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Naziv materijala:</label>
+            <br>
+            <input type="text" class="form-control" id="nazivPriloga" placeholder="Naziv materijala" data-bind="value: nazivMaterijala"/>
+
+            <label for="urlPriloga" style="color: #0572ce; letter-spacing: 1px;  font-size: 17px">Prilog</label>
+            <br>
+            <!--accept="[[acceptArr]]"-->
+
+            <oj-file-picker
+                id="myFile"
+                selection-mode="single"
+                on-oj-select='[[selectionListener]]'>
+            </oj-file-picker>
+            <!--<input type="text" class="form-control" id="prilog" placeholder="URL priloga" data-bind="value: urlPriloga"/>-->
+
+            <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-info btn-block " data-bind="click:zakazi" class="btn btn-default" ><i class="fa fa-sign-in" aria-hidden="true"></i>Zakazi konsultacije</button>
+        </div>
+        <div slot="footer">
+            <oj-button id="okButton" data-bind="click: function() {
+                  document.querySelector('#popup1').close();
+                }">  Otkazi
+            </oj-button>
+        </div>
+    </oj-dialog>
+
+    <oj-popup style="display:none" id="popupOtkazi" >
+        <oj-defer>
+
+            <button style="font-size: 17px; letter-spacing: 1px; " id="myBtn" type="submit" class ="btn btn-info btn-block " data-bind="click:otkazi" class="btn btn-default" ><i class="fa fa-sign-in" aria-hidden="true"></i>Otkazi konsultacije</button>
+
+        </oj-defer>
+    </oj-popup>
+</div>
+
+
+
