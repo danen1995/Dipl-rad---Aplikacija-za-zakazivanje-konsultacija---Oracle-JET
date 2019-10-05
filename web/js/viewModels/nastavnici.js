@@ -51,8 +51,6 @@ define(['ojs/ojcore', 'knockout', 'viewModels/zakazivanjeKonsultacija2', 'ojs/oj
                 self.listItemClickListener = function (event)
                 {
                     var itemId = event.detail.value;
-                    console.log("Promenjen izbor. Izabran nastavnik sa jmbgom:");
-                    console.log(itemId);
                     rootViewModel.izabraniNastavnikJmbg(itemId);
                     document.querySelector('#popupNastavnik').open(event.detail.value);
 

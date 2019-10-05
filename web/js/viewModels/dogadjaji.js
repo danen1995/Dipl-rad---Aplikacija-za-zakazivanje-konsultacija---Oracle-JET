@@ -24,12 +24,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                 self.dani = ko.observableArray([""]);
                 self.val = ko.observable("");
                 self.username = rootViewModel.userLogin();
-
-//                self.dogadjajPKString = ko.observable("{\"idKalendara\":"+rootViewModel.idKalendara()+"}");
-//                var dogadjajPK = JSON.parse(self.dogadjajPKString());
-//                self.tipDogadjajaString = ko.observable("{\"idTipaDogadjaja\": 2}");
-//                var tipDogadjaja = JSON.parse(self.tipDogadjajaString());
-
                 self.kreirajKonsultacije = function ()
                 {
                     var dogadjajPK = JSON.parse("{\"idKalendara\":" + rootViewModel.idKalendara() + "}");
@@ -51,13 +45,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                         document.querySelector('#dijalogPoruka').open();
                         x = "neuspesno";
                     }
-                    console.log(self.datumPocetka())
                     if (new Date(self.datumPocetka()) > new Date(self.datumZavrsetka())) {
                         rootViewModel.poruka("Datum zavrsetka mora biti nakon datuma pocetka");
                         document.querySelector('#dijalogPoruka').open();
                         x = "neuspesno";
                     }
-                
+
                     return (x == "uspesno");
                 };
                 self.generisi = function () {
@@ -73,8 +66,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                                     self.listaDatuma.push(this);
                                     self.datumIVremePocetka(this + self.vremePocetka());
                                     self.datumIVremeZavrsetka(this + self.vremeZavrsetka());
-                                    console.log(self.datumIVremePocetka());
-                                    console.log(self.datumIVremeZavrsetka());
                                     self.dodajKonsultaciju();
                                 });
                                 kalendarDogadjaja.osveziKalendar();
@@ -82,7 +73,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                             error: function (jqXHR, textStatus, errorThrown) {
                                 rootViewModel.poruka("Greska!");
                                 document.querySelector('#dijalogPoruka').open();
-                                console.log("Neuspesno odredjivanje tipa usera.");
                             }
                         });
                     }
@@ -103,7 +93,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                         error: function (jqXHR, textStatus, errorThrown) {
                             rootViewModel.poruka("Neuspesno dodavanje konsultacije");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log('Greska u funkciji login: ' + textStatus);
                         }
                     });
                 };

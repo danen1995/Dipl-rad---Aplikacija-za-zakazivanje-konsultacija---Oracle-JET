@@ -35,7 +35,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojTable', 'oj
                     error: function (jqXHR, textStatus, errorThrown) {
                         rootViewModel.poruka("Sistem ne može da prikaže va[e podatke.");
                         document.querySelector('#dijalogPoruka').open();
-                        console.log('Greska u funkciji login: ' + textStatus);
                     }
 
                 });

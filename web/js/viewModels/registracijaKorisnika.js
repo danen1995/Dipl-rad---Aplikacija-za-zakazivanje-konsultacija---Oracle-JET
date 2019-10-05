@@ -10,8 +10,6 @@ define(['ojs/ojcore', 'knockout', 'viewModels/login', 'jquery', 'ojs/ojmodel',
         function (oj, ko, login) {
             function RegKorViewModel() {
                 var self = this;
-                ;
-
                 self.idKorisnika = ko.observable("");
                 self.korisnickoIme = ko.observable("");
                 self.lozinka = ko.observable("");
@@ -30,12 +28,10 @@ define(['ojs/ojcore', 'knockout', 'viewModels/login', 'jquery', 'ojs/ojmodel',
                 self.registracijaKorisnika = function ()
                 {
                     $.getJSON("http://localhost:8083/student/getStudent?brojIndeksa=" + self.brojIndeksa()).fail(function (jqXHR, status, error) {
-                        console.log(jqXHR);
                         document.getElementById('divError').innerHTML = "Student sa tim brojem indeksa ne postoji!";
                         document.getElementById('divError').style.display = "block";
                     }).then(function (student) {
                         self.student(student);
-                        console.log(self.kreirajKorisnika());
                         self.collection.create(self.kreirajKorisnika(), {
                             wait: true,
                             contentType: 'application/json',
@@ -48,8 +44,6 @@ define(['ojs/ojcore', 'knockout', 'viewModels/login', 'jquery', 'ojs/ojmodel',
                             error: function (jqXHR, textStatus, errorThrown) {
                                 rootViewModel.poruka("Neuspesno.");
                                 document.querySelector('#dijalogPoruka').open();
-                                console.log('Error in Create: ' + textStatus);
-                                console.log(jqXHR);
                                 document.getElementById('divError').innerHTML = jqXHR.responseText;
                                 document.getElementById('divError').style.display = "block";
                             }

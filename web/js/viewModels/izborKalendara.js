@@ -35,7 +35,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                 );
                 self.optionChange = function () {
                     var selectionObj = $("#table").ojTable("option", "selection");
-                    console.log(selectionObj[0].startKey.row);
                     rootViewModel.idKalendara(selectionObj[0].startKey.row.toString().slice(0, -14));
                     document.querySelector('#modalDialog1').open();
                     rootViewModel.izabraniKalendar(selectionObj[0].startKey.row.toString().slice(-14));

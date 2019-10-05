@@ -19,13 +19,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                 self.nazivMaterijala = ko.observable();
                 self.konsZaBrisanje = ko.observable();
                 self.mojeKonsultacije = ko.observableArray();
-//                self.csvFileContent = ko.observable("");
-//                self.acceptStr = ko.observable(".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel");
-//                self.acceptArr = ko.pureComputed(function () {
-//                    var accept = self.acceptStr();
-//                    return accept ? accept.split(",") : [];
-//                }, self);
-
                 self.prilog = new FormData();
                 self.selectionListener = function (event) {
                     self.files = event.detail.files;
@@ -128,33 +121,28 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert("DOSLO JE DO GRESKE PRILIKOM ZAKAZIVANJE KONSULTACIJA!");
-                            console.log('Greska u funkciji login: ' + textStatus);
                         }
                     });
-//                    self.generisiStudentKonsultacije();
-                    console.log(self.prilog);
-                        $.ajax({
-                            url: "http://localhost:8083/prilog/add?idKalendara=" + self.studentKonsultacijePK.idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK.idDogadjaja + "&brojIndeksa=" + self.studentKonsultacijePK.brojIndeksaStudenta,
-                            data: self.prilog,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            method: 'POST',
-                            success: function (result, status, jqXHR) {
-                                rootViewModel.poruka("Uspesno ste zakazali konsultacije.");
-                                document.querySelector('#dijalogPoruka').open();
-                                document.querySelector('#popup1').close();
-                                self.prilog = new FormData();
-                                self.files = null;
+                    $.ajax({
+                        url: "http://localhost:8083/prilog/add?idKalendara=" + self.studentKonsultacijePK.idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK.idDogadjaja + "&brojIndeksa=" + self.studentKonsultacijePK.brojIndeksaStudenta,
+                        data: self.prilog,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: 'POST',
+                        success: function (result, status, jqXHR) {
+                            rootViewModel.poruka("Uspesno ste zakazali konsultacije.");
+                            document.querySelector('#dijalogPoruka').open();
+                            document.querySelector('#popup1').close();
+                            self.prilog = new FormData();
+                            self.files = null;
 
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                rootViewModel.poruka("Sistem ne može da zakaže konsultacije.");
-                                document.querySelector('#dijalogPoruka').open();
-                                console.log(jqXHR);
-                                console.log('Greska u funkciji login: ' + textStatus);
-                            }
-                        });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            rootViewModel.poruka("Sistem ne može da zakaže konsultacije.");
+                            document.querySelector('#dijalogPoruka').open();
+                        }
+                    });
                     ;
                 };
                 self.osveziKalendar = function () {
@@ -182,14 +170,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                     });
                     self.studentKonsultacijePK = JSON.parse(self.x());
                 };
-//                self.generisiStudentKonsultacije = function () {
-//                    var a = JSON.stringify(self.dogadjajPK()).slice(0, -1);
-//                    var b = rootViewModel.brojIndeksaUlogovanogStudenta();
-//                    self.x = ko.pureComputed(function () {
-//                        return "{ \"studentKonsultacijePK\":" + a + ", \"brojIndeksaStudenta\": " + "\"" + b + "\"" + "}}";
-//                    });
-//                    self.studentKonsultacije = JSON.parse(self.x());
-//                };
 
                 self.eventClick = function (calEvent, jsEvent, view) {
                     if (calEvent.color == 'yellow') {
@@ -219,11 +199,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Greska u funkciji login: ' + textStatus);
                             rootViewModel.poruka("Nespesno ste obrisali konsultacije.");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log(jqXHR);
-
                         }
                     });
                 };

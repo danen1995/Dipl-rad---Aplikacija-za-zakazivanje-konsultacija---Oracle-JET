@@ -9,11 +9,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
         function (oj, ko, $) {
             function LoginViewModel() {
                 var self = this;
-             
                 var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
                 self.username = ko.observable("milos");
-//                var d = new Date("2018-08-30T06:00:00.000+0000");
-//                console.log(d);
                 self.password = ko.observable("milos");
                 self.login = function () {
                     var korisnik = self.vratiKorisnika();
@@ -34,7 +31,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                             self.preusmeri();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Greska u funkciji login: ' + textStatus);
                             var x = document.getElementById("myDIV");
                             x.style.display = "block";
                         }
@@ -42,18 +38,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                     });
                 };
                 self.preusmeri = function () {
-                    console.log("PREUSMERI - Tip ulogovanog usera:");
-                    console.log(rootViewModel.tipUsera());
                     if (rootViewModel.tipUsera() === "nastavnik") {
                         var navData = [
                             {name: 'Spisak kalendara', id: 'izborKalendara',
                                 iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'}
-//                            {name: 'Dogadjaji', id: 'dogadjaji',
-//                                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
-//                            {name: 'Moj kalendar', id: 'kalendarDogadjaja',
-//                                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'},
-//                            {name: 'Zakazane konsultacije', id: 'nastavnikoveKonsultacije',
-//                                iconClass: 'oj-navigationlist-item-icon demo-icon-font-24 demo-chart-icon-24'}
                         ];
                         rootViewModel.navDataSource.reset(navData, {idAttribute: 'id'});
                         self.navDataSource = new oj.ArrayTableDataSource(navData, {idAttribute: 'id'});
@@ -77,8 +65,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                     }
                 }
                 self.odrediTipUsera = function () {
-                    console.log("Odredi tip usera. ID USERA ZA ODREDJIVANJE JE:");
-                    console.log(rootViewModel.userID());
                     $.ajax({
                         url: "http://localhost:8083/tipUsera?korID=" + rootViewModel.userID(),
                         type: "GET",
@@ -87,15 +73,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                         dataType: "text",
                         processData: false, // avoid the data being parsed to query string params
                         success: function (result, status, jqXHR) {
-                            console.log("Uspesno odredjen tip usera.");
                             if (result.includes("/")) {
                                 rootViewModel.tipUsera("student");
                                 rootViewModel.brojIndeksaUlogovanogStudenta(result);
-                                console.log(rootViewModel.brojIndeksaUlogovanogStudenta());
                             } else {
                                 rootViewModel.tipUsera("nastavnik");
                                 rootViewModel.jmbgUlogovanogNastavnika(result);
-                                console.log(rootViewModel.jmbgUlogovanogNastavnika());
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

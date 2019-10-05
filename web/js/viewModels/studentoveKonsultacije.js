@@ -10,8 +10,6 @@ define(['ojs/ojcore', 'knockout',
         function (oj, ko, $) {
             function StudentoveKonsultacijeViewModel() {
                 var self = this;
-                ;
-
                 var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
                 self.racuni = ko.observableArray();
                 self.lista = ko.observableArray();
@@ -60,11 +58,8 @@ define(['ojs/ojcore', 'knockout',
                             self.osveziTabelu();
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Greska u funkciji login: ' + textStatus);
                             rootViewModel.poruka("Sistem ne moze da obriše zakazane konsultacije.");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log(jqXHR);
-
                         }
                     });
                 };

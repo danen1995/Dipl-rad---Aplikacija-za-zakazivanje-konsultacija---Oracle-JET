@@ -36,7 +36,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                         contentType: "application/json",
                         processData: false, // avoid the data being parsed to query string params
                         success: function (result, status, jqXHR) {
-                            console.log("Uspesno odredjen tip usera.");
                             $.each(result, function () {
                                 if (self.daLiSuProsle(this)) {
                                     self.lista.push({
@@ -69,7 +68,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
 
                     } else {
                         self.kliknutiDatum(date.format());
-                        console.log(self.kliknutiDatum());
                         document.querySelector('#modalDialog3').open();
                     }
 
@@ -84,7 +82,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                 };
 
                 self.dodajKonsultaciju = function () {
-                    console.log(self.kreirajKonsultacije());
                     $.ajax({
                         url: "http://localhost:8083/konsultacije/add",
                         method: "POST",
@@ -99,12 +96,10 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                         error: function (jqXHR, textStatus, errorThrown) {
                             rootViewModel.poruka("Sistem ne može da zapamti novi termin konsultacija");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log('Greska u funkciji login: ' + textStatus);
                         }
                     });
 
                 };
-
                 self.kreirajKonsultacije = function ()
                 {
                     return {
@@ -127,7 +122,6 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
 
                 self.detaljanPregled = function () {
                     rootViewModel.dogadjajPrimarni(self.dogadjajPrimarni());
-                    console.log(rootViewModel.dogadjajPrimarni());
                     oj.Router.rootInstance.go('konsultacijeZaDan');
                     konsultacijeZaDan.osveziTabelu();
                 };
@@ -169,15 +163,12 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                             console.log("Neuspesno slanje emaila.");
                         }
                     });
-
                 };
                 self.daLiSuProsle = function (dogadjaj) {
-                    var u = 0;
                     if (new Date(dogadjaj.datumIVremePocetka) < new Date()) {
-                        console.log("prosao");
-                        u = u + 1;
+                        return true;
                     }
-                    return (u != 0);
+                    return false;
                 };
             }
             return new KalendarDogadjajaViewModel();

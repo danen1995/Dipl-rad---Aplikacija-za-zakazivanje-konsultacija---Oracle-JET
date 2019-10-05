@@ -43,11 +43,8 @@ define(['ojs/ojcore', 'knockout',
                             });
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Greska u funkciji login: ' + textStatus);
                             rootViewModel.poruka("Sistem ne može da prikaže zakazane konsultacije.");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log(jqXHR);
-
                         }
                     });
                 };
@@ -68,13 +65,11 @@ define(['ojs/ojcore', 'knockout',
                         success: function (result, status, jqXHR) {
                             rootViewModel.poruka("Uspesno ste obrisali konsultacije. Obavestite studenta o tome.");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log(jqXHR)
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log('Greska u funkciji login: ' + textStatus);
                             rootViewModel.poruka("NEspesno");
                             document.querySelector('#dijalogPoruka').open();
-                            console.log(jqXHR);
 
                         }
                     });
