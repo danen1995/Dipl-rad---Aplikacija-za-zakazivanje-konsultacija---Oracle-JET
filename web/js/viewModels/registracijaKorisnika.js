@@ -16,18 +16,18 @@ define(['ojs/ojcore', 'knockout', 'viewModels/login', 'jquery', 'ojs/ojmodel',
                 self.student = ko.observable("");
                 self.brojIndeksa = ko.observable("");
                 var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
-                self.sviNalozi = 'http://localhost:8083/register';
+                self.sviNalozi = 'http://localhost:8083/api/auth/signup';
                 self.collection = new oj.Collection(null, {
                     url: self.sviNalozi,
                     fetchSize: 10,
                     model: new oj.Model.extend({
-                        idAttribute: 'korisnickoIme'
+                        idAttribute: 'userName'
                     })
                 });
 
                 self.registracijaKorisnika = function ()
                 {
-                    $.getJSON("http://localhost:8083/student/getStudent?brojIndeksa=" + self.brojIndeksa()).fail(function (jqXHR, status, error) {
+                    $.getJSON("http://localhost:8083/student/get?indexNumber=" + self.brojIndeksa()).fail(function (jqXHR, status, error) {
                         document.getElementById('divError').innerHTML = "Student sa tim brojem indeksa ne postoji!";
                         document.getElementById('divError').style.display = "block";
                     }).then(function (student) {
@@ -53,9 +53,9 @@ define(['ojs/ojcore', 'knockout', 'viewModels/login', 'jquery', 'ojs/ojmodel',
                 self.kreirajKorisnika = function ()
                 {
                     return {
-                        'korisnickoIme': self.korisnickoIme(),
-                        'lozinka': self.lozinka(),
-                        'nastavnik': null,
+                        'userName': self.korisnickoIme(),
+                        'password': self.lozinka(),
+                        'teacher': null,
                         'student': self.student()
                     };
                 };

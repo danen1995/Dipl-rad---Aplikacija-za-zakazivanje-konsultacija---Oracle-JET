@@ -30,7 +30,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                     self.dogadjajPKString("{\"idKalendara\": " + rootViewModel.idKalendara() + "}");
                     self.dogadjajPK(JSON.parse(self.dogadjajPKString()));
                     $.ajax({
-                        url: "http://localhost:8083/konsultacije/zaNastavnikovKalendar?jmbg=" + rootViewModel.jmbgUlogovanogNastavnika() + "&idKalendara=" + rootViewModel.idKalendara(),
+                        url: "http://localhost:8083/consultations/fromTeachersCalendar?teacherId=" + rootViewModel.jmbgUlogovanogNastavnika() + "&calendarId=" + rootViewModel.idKalendara(),
                         type: "GET",
                         async: false,
                         contentType: "application/json",
@@ -83,7 +83,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
 
                 self.dodajKonsultaciju = function () {
                     $.ajax({
-                        url: "http://localhost:8083/konsultacije/add",
+                        url: "http://localhost:8083/consultations/add",
                         method: "POST",
                         async: false,
                         data: JSON.stringify(self.kreirajKonsultacije()),
@@ -103,13 +103,13 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                 self.kreirajKonsultacije = function ()
                 {
                     return {
-                        'dogadjajPK': self.dogadjajPK(),
-                        'datumIVremePocetka': self.datumIVremePocetka(),
-                        'datumIVremeZavrsetka': self.datumIVremeZavrsetka(),
-                        'mestoOdrzavanja': self.mestoOdrzavanja(),
-                        'idTipaDogadjaja': tipDogadjaja,
-                        'kapacitet': self.kapacitet(),
-                        'brojZakazanih': 0
+                        'eventPK': self.dogadjajPK(),
+                        'startDateTime': self.datumIVremePocetka(),
+                        'endDateTime': self.datumIVremeZavrsetka(),
+                        'place': self.mestoOdrzavanja(),
+                        'eventTypeId': tipDogadjaja,
+                        'capacity': self.kapacitet(),
+                        'numberOfScheduledCons': 0
                     };
                 };
                 self.eventClick = function (calEvent, jsEvent, view) {
@@ -130,7 +130,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                 };
                 self.izbrisi = function () {
                     $.ajax({
-                        url: " http://localhost:8083/konsultacije/izbrisi?idKalendara=" + self.dogadjajPrimarni().idKalendara + "&idDogadjaja=" + self.dogadjajPrimarni().idDogadjaja,
+                        url: " http://localhost:8083/consultations/delete?calendarId=" + self.dogadjajPrimarni().idKalendara + "&eventId=" + self.dogadjajPrimarni().idDogadjaja,
                         type: "DELETE",
                         async: false,
                         contentType: "application/json",
@@ -146,7 +146,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/konsultacijeZaDan', 'ful
                         }
                     });
                     $.ajax({
-                        url: " http://localhost:8083/posaljimail?email=danen1995@gmail.com",
+                        url: " http://localhost:8083/sendMail?email=danen1995@gmail.com",
                         type: "GET",
                         async: false,
                         contentType: "application/json",

@@ -26,16 +26,16 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                 self.username = rootViewModel.userLogin();
                 self.kreirajKonsultacije = function ()
                 {
-                    var dogadjajPK = JSON.parse("{\"idKalendara\":" + rootViewModel.idKalendara() + "}");
-                    var tipDogadjaja = JSON.parse("{\"idTipaDogadjaja\": 2}");
+                    var dogadjajPK = JSON.parse("{\"calendarId\":" + rootViewModel.idKalendara() + "}");
+                    var tipDogadjaja = JSON.parse("{\"eventId\": 2}");
                     return {
-                        'dogadjajPK': dogadjajPK,
-                        'datumIVremePocetka': self.datumIVremePocetka(),
-                        'datumIVremeZavrsetka': self.datumIVremeZavrsetka(),
-                        'mestoOdrzavanja': self.mestoOdrzavanja(),
-                        'idTipaDogadjaja': tipDogadjaja,
-                        'kapacitet': self.kapacitet(),
-                        'brojZakazanih': 0
+                        'eventPK': dogadjajPK,
+                        'startDateTime': self.datumIVremePocetka(),
+                        'endDateTime': self.datumIVremeZavrsetka(),
+                        'place': self.mestoOdrzavanja(),
+                        'eventTypeId': tipDogadjaja,
+                        'capacity': self.kapacitet(),
+                        'numberOfScheduledCons': 0
                     };
                 };
                 self.validacija = function () {
@@ -56,7 +56,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                 self.generisi = function () {
                     if (self.validacija() == true) {
                         $.ajax({
-                            url: "http://localhost:8083/konsultacije/ispis?datumOd=" + self.datumPocetka() + "&datumDo=" + self.datumZavrsetka() + "&dan=" + self.val(),
+                            url: "http://localhost:8083/consultations/ispis?datumOd=" + self.datumPocetka() + "&datumDo=" + self.datumZavrsetka() + "&dan=" + self.val(),
                             type: "GET",
                             async: false,
                             contentType: "application/json",
@@ -80,7 +80,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
 
                 self.dodajKonsultaciju = function () {
                     $.ajax({
-                        url: "http://localhost:8083/konsultacije/add",
+                        url: "http://localhost:8083/consultations/add",
                         method: "POST",
                         async: false,
                         data: JSON.stringify(self.kreirajKonsultacije()),

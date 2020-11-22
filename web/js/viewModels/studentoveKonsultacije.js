@@ -16,7 +16,7 @@ define(['ojs/ojcore', 'knockout',
                 self.studentKonsultacijePK = ko.observable();
                 self.osveziTabelu = function () {
                     self.lista.removeAll();
-                    $.getJSON("http://localhost:8083/zakazaneKonsultacije/zaStudenta?brojIndeksa=" + rootViewModel.brojIndeksaUlogovanogStudenta()).
+                    $.getJSON("http://localhost:8083/scheduledConsultations/student?indexNumber=" + rootViewModel.brojIndeksaUlogovanogStudenta()).
                             then(function (movies) {
                                 $.each(movies, function () {
                                     self.datumPocetka = ko.observable(this.konsultacije.datumIVremePocetka.substring(0, 10));
@@ -48,7 +48,7 @@ define(['ojs/ojcore', 'knockout',
                 };
                 self.otkazi = function () {
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/izbrisi?idKalendara=" + self.studentKonsultacijePK().idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK().idDogadjaja + "&brojIndeksaStudenta=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
+                        url: " http://localhost:8083/scheduledConsultations/delete?calendarId=" + self.studentKonsultacijePK().idKalendara + "&eventId=" + self.studentKonsultacijePK().idDogadjaja + "&indexNumber=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
                         method: "DELETE",
                         async: false,
                         contentType: "application/json",

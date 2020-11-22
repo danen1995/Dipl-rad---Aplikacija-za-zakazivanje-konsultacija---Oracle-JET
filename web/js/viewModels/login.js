@@ -10,19 +10,19 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
             function LoginViewModel() {
                 var self = this;
                 var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
-                self.username = ko.observable("milos");
-                self.password = ko.observable("milos");
+                self.username = ko.observable("dane");
+                self.password = ko.observable("dane");
                 self.login = function () {
                     var korisnik = self.vratiKorisnika();
                     $.ajax({
-                        url: "http://localhost:8083/login",
+                        url: "http://localhost:8083/api/auth/signin",
                         method: "POST",
                         async: false,
                         data: JSON.stringify(korisnik),
                         contentType: "application/json",
                         success: function (result, status, jqXHR) {
-                            rootViewModel.userID(result.idKorisnickogNaloga);
-                            rootViewModel.userLogin(result.korisnickoIme);
+                            rootViewModel.userID(result.userAccountId);
+                            rootViewModel.userLogin(result.userName);
                             self.odrediTipUsera();
                             rootViewModel.isLoggedIn('true');
                             rootViewModel.restSessionId("");
@@ -66,7 +66,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                 }
                 self.odrediTipUsera = function () {
                     $.ajax({
-                        url: "http://localhost:8083/tipUsera?korID=" + rootViewModel.userID(),
+                        url: "http://localhost:8083/api/auth/studentOrProfessorID?userAccountId=" + rootViewModel.userID(),
                         type: "GET",
                         async: false,
                         contentType: "text/plain",
@@ -82,6 +82,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(jqXHR, textStatus, errorThrown);
                             console.log("Neuspesno odredjivanje tipa usera.");
                         }
                     });
@@ -89,8 +90,8 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojmodel', 'ojs/ojfilepicker', '
                 self.vratiKorisnika = function ()
                 {
                     return {
-                        'korisnickoIme': self.username(),
-                        'lozinka': self.password()
+                        'userName': self.username(),
+                        'password': self.password()
                     };
                 };
             }

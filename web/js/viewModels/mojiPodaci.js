@@ -5,7 +5,7 @@
 /*
  * Your customer ViewModel code goes here
  */
-define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojTable', 'ojs/ojinputtext', 'ojs/ojarraytabledatasource'],
+define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojinputtext', 'ojs/ojarraytabledatasource'],
         function (oj, ko, $) {
             function CustomerViewModel() {
                 var self = this;
@@ -18,18 +18,18 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'ojs/ojknockout', 'ojs/ojTable', 'oj
                 self.email = ko.observable("");
                 var rootViewModel = ko.dataFor(document.getElementById('mainContent'));
                 $.ajax({
-                    url: "http://localhost:8083/student/getStudent?brojIndeksa=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
+                    url: "http://localhost:8083/student/get?indexNumber=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
                     method: "GET",
                     async: false,
                     contentType: "application/json",
                     success: function (result, status, jqXHR) {
                         var student = result;
-                        self.brojIndeksa(student.brojIndeksa);
-                        self.ime(student.ime);
-                        self.prezime(student.prezime);
-                        self.godinaUpisa(student.godinaUpisa);
-                        self.smer(student.smer);
-                        self.brojTelefona(student.brojTelefona);
+                        self.brojIndeksa(student.indexNumber);
+                        self.ime(student.firstName);
+                        self.prezime(student.lastName);
+                        self.godinaUpisa(student.yearOfEntry);
+                        self.smer(student.department);
+                        self.brojTelefona(student.telephone);
                         self.email(student.email);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {

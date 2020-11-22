@@ -27,22 +27,22 @@ define(['ojs/ojcore', 'knockout',
                     self.lista.removeAll();
                     self.dogadjajPrimarni(rootViewModel.dogadjajPrimarni());
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/getForEvent?idKalendara=" + self.dogadjajPrimarni().idKalendara + "&idDogadjaja=" + self.dogadjajPrimarni().idDogadjaja,
+                        url: "http://localhost:8083/scheduledConsultations/event?calendarId=" + self.dogadjajPrimarni().idKalendara + "&eventId=" + self.dogadjajPrimarni().idDogadjaja,
                         method: "GET",
                         async: false,
                         contentType: "application/json",
                         processData: false,
                         success: function (result, status, jqXHR) {
                             $.each(result, function () {
-                                self.datumPocetka = ko.observable(this.konsultacije.datumIVremePocetka.substring(0, 10));
-                                self.vremePocetka = ko.observable(this.konsultacije.datumIVremePocetka.substring(11, 19));
-                                self.datumZavrsetka = ko.observable(this.konsultacije.datumIVremeZavrsetka.substring(0, 10));
-                                self.vremeZavrsetka = ko.observable(this.konsultacije.datumIVremeZavrsetka.substring(11, 19));
+                                self.datumPocetka = ko.observable(this.konsultacije.startDateTime.substring(0, 10));
+                                self.vremePocetka = ko.observable(this.konsultacije.startDateTime.substring(11, 19));
+                                self.datumZavrsetka = ko.observable(this.konsultacije.endDateTime.substring(0, 10));
+                                self.vremeZavrsetka = ko.observable(this.konsultacije.endDateTime.substring(11, 19));
                                 self.lista.push({
-                                    studentKonsultacijePK: this.studentKonsultacijePK,
+                                    studentKonsultacijePK: this.studentConsultationPK,
                                     status: this.status,
-                                    opis: this.opis,
-                                    naslov: this.naslov,
+                                    opis: this.description,
+                                    naslov: this.title,
                                     datum: self.datumPocetka(),
                                     vremePocetka: self.vremePocetka(),
                                     vremeZavrsetka: self.vremeZavrsetka(),
@@ -67,7 +67,7 @@ define(['ojs/ojcore', 'knockout',
                     var selectionObj = $("#table").ojTable("option", "selection");
                     self.studentKonsultacijePK(selectionObj[0].startKey.row);
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/izbrisi?idKalendara=1&idDogadjaja=2&brojIndeksaStudenta=2014/0044",
+                        url: " http://localhost:8083/scheduledConsultations/izbrisi?idKalendara=1&idDogadjaja=2&brojIndeksaStudenta=2014/0044",
                         method: "DELETE",
                         async: false,
                         contentType: "application/json",
@@ -86,7 +86,7 @@ define(['ojs/ojcore', 'knockout',
                 self.postaviOpisIStatus = function () {
                     var selectionObj = $("#table").ojTable("option", "selection");
                     self.studentKonsultacijePK(selectionObj[0].startKey.row);
-                    $.getJSON("http://localhost:8083/zakazaneKonsultacije/get?idKalendara=" + self.studentKonsultacijePK().idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK().idDogadjaja + "&brojIndeksaStudenta=" + self.studentKonsultacijePK().brojIndeksaStudenta)
+                    $.getJSON("http://localhost:8083/scheduledConsultations/get?calendarId=" + self.studentKonsultacijePK().idKalendara + "&eventId=" + self.studentKonsultacijePK().idDogadjaja + "&brojIndeksaStudenta=" + self.studentKonsultacijePK().brojIndeksaStudenta)
                             .fail(function (jqXHR, status, error) {
                                 console.log("service failed");
                                 console.log(jqXHR);
@@ -94,7 +94,7 @@ define(['ojs/ojcore', 'knockout',
                         student.status = self.status();
                         student.opis = self.opis();
                         $.ajax({
-                            url: "http://localhost:8083/zakazaneKonsultacije/update",
+                            url: "http://localhost:8083/scheduledConsultations/update",
                             method: "PUT",
                             async: false,
                             data: JSON.stringify(student),

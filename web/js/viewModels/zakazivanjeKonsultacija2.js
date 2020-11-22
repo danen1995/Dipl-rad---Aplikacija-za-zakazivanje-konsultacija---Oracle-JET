@@ -31,7 +31,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                 self.napuniMojeKons = function () {
                     self.mojeKonsultacije.removeAll();
                     $.ajax({
-                        url: "http://localhost:8083/zakazaneKonsultacije/zaStudenta?brojIndeksa=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
+                        url: "http://localhost:8083/scheduledConsultations/student?indexNumber=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
                         type: "GET",
                         async: false,
                         contentType: "application/json",
@@ -53,7 +53,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                     self.lista.removeAll();
                     self.jmbgNastavnika = rootViewModel.izabraniNastavnikJmbg();
                     $.ajax({
-                        url: "http://localhost:8083/konsultacije/zaNastavnika?JMBGNastavnika=" + self.jmbgNastavnika,
+                        url: "http://localhost:8083/teacher/get?teacherId=" + self.jmbgNastavnika,
                         type: "GET",
                         async: false,
                         contentType: "application/json",
@@ -110,7 +110,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                 self.zakazi = function () {
                     self.generisiStudentKonsultacijePK();
                     $.ajax({
-                        url: "http://localhost:8083/zakazaneKonsultacije/add",
+                        url: "http://localhost:8083/scheduledConsultations/add",
                         method: "POST",
                         async: false,
                         data: JSON.stringify(self.kreirajStudentKonsultacije()),
@@ -124,7 +124,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
                         }
                     });
                     $.ajax({
-                        url: "http://localhost:8083/prilog/add?idKalendara=" + self.studentKonsultacijePK.idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK.idDogadjaja + "&brojIndeksa=" + self.studentKonsultacijePK.brojIndeksaStudenta,
+                        url: "http://localhost:8083/prilog/add?calendarId=" + self.studentKonsultacijePK.idKalendara + "&eventId=" + self.studentKonsultacijePK.idDogadjaja + "&indexNumber=" + self.studentKonsultacijePK.brojIndeksaStudenta,
                         data: self.prilog,
                         cache: false,
                         contentType: false,
@@ -187,7 +187,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/studentoveKonsultacije',
 
                 self.otkazi = function () {
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/izbrisi?idKalendara=" + self.konsZaBrisanje().idKalendara + "&idDogadjaja=" + self.konsZaBrisanje().idDogadjaja + "&brojIndeksaStudenta=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
+                        url: " http://localhost:8083/scheduledConsultations/delete?calendarId=" + self.konsZaBrisanje().idKalendara + "&eventId=" + self.konsZaBrisanje().idDogadjaja + "&indexNumber=" + rootViewModel.brojIndeksaUlogovanogStudenta(),
                         method: "DELETE",
                         async: false,
                         contentType: "application/json",

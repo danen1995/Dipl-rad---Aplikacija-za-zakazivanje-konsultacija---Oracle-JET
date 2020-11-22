@@ -16,7 +16,7 @@ define(['ojs/ojcore', 'knockout', 'jquery', 'viewModels/kalendarDogadjaja', 'ojs
                 self.idKalendara = ko.observable();
                 self.osveziTabelu = function () {
                     self.lista.removeAll();
-                    $.getJSON("http://localhost:8083/kalendar/zaNastavnika?jmbg=" + rootViewModel.jmbgUlogovanogNastavnika()).
+                    $.getJSON("http://localhost:8083/calendar/teacher?teacherId=" + rootViewModel.jmbgUlogovanogNastavnika()).
                             then(function (movies) {
                                 $.each(movies, function () {
                                     self.lista.push({

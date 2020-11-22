@@ -22,7 +22,7 @@ define(['ojs/ojcore', 'knockout', 'viewModels/zakazivanjeKonsultacija2', 'ojs/oj
                 self.osveziListu = function () {
                     self.lista.removeAll();
                     $.ajax({
-                        url: "http://localhost:8083/nastavnik/sve",
+                        url: "http://localhost:8083/teacher/getAll",
                         type: "GET",
                         async: false,
                         contentType: "application/json",

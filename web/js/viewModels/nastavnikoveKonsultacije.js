@@ -19,7 +19,7 @@ define(['ojs/ojcore', 'knockout',
                 self.osveziTabelu = function () {
                     self.lista.removeAll();
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/zaNastavnika?JMBGNastavnika=" + rootViewModel.jmbgUlogovanogNastavnika(),
+                        url: " http://localhost:8083/scheduledConsultations/teacher?teacherId=" + rootViewModel.jmbgUlogovanogNastavnika(),
                         method: "GET",
                         async: false,
                         contentType: "application/json",
@@ -58,7 +58,7 @@ define(['ojs/ojcore', 'knockout',
                     var selectionObj = $("#table").ojTable("option", "selection");
                     self.studentKonsultacijePK(selectionObj[0].startKey.row);
                     $.ajax({
-                        url: " http://localhost:8083/zakazaneKonsultacije/izbrisi?idKalendara=1&idDogadjaja=2&brojIndeksaStudenta=2014/0044",
+                        url: " http://localhost:8083/scheduledConsultations/delete?calendarId=1&eventId=2&indexNumber=2014/0044",
                         method: "DELETE",
                         async: false,
                         contentType: "application/json",
@@ -77,7 +77,7 @@ define(['ojs/ojcore', 'knockout',
                 self.postaviOpisIStatus = function () {
                     var selectionObj = $("#table").ojTable("option", "selection");
                     self.studentKonsultacijePK(selectionObj[0].startKey.row);
-                    $.getJSON("http://localhost:8083/zakazaneKonsultacije/get?idKalendara=" + self.studentKonsultacijePK().idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK().idDogadjaja + "&brojIndeksaStudenta=" + self.studentKonsultacijePK().brojIndeksaStudenta)
+                    $.getJSON("http://localhost:8083/scheduledConsultations/get?calendarId=" + self.studentKonsultacijePK().idKalendara + "&eventId=" + self.studentKonsultacijePK().idDogadjaja + "&indexNumber=" + self.studentKonsultacijePK().brojIndeksaStudenta)
                             .fail(function (jqXHR, status, error) {
                                 console.log("fejlovao je servis");
                                 console.log(jqXHR);
@@ -86,7 +86,7 @@ define(['ojs/ojcore', 'knockout',
                         student.opis = self.opis();
 
                         $.ajax({
-                            url: "http://localhost:8083/zakazaneKonsultacije/update",
+                            url: "http://localhost:8083/scheduledConsultations/update",
                             method: "PUT",
                             async: false,
                             data: JSON.stringify(student),
@@ -109,7 +109,7 @@ define(['ojs/ojcore', 'knockout',
                 self.downloadPrilog = function () {
                     var selectionObj = $("#table").ojTable("option", "selection");
                     self.studentKonsultacijePK(selectionObj[0].startKey.row);
-                    window.open("http://localhost:8083/prilog/download?idKalendara=" + self.studentKonsultacijePK().idKalendara + "&idDogadjaja=" + self.studentKonsultacijePK().idDogadjaja + "&brojIndeksa=" + self.studentKonsultacijePK().brojIndeksaStudenta, '_blank');
+                    window.open("http://localhost:8083/attachment/download?calendarId=" + self.studentKonsultacijePK().idKalendara + "&eventId=" + self.studentKonsultacijePK().idDogadjaja + "&indexNumber=" + self.studentKonsultacijePK().brojIndeksaStudenta, '_blank');
                 };
 
                 self.optionChange = function () {
